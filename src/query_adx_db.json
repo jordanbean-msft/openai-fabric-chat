@@ -1,0 +1,21 @@
+{
+    "name": "query_adx_db",
+    "description": "Execute a query against an Azure Data Explorer database named '<YOUR-DATABASE-NAME>'",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "database": {
+          "type": "string",
+          "description": "The name of the database to execute a query on"
+        },
+        "query": {
+          "type": "string",
+          "description": "The query to execute"
+        }
+      },
+      "required": [
+        "database",
+        "query"
+      ]
+    }
+  }
