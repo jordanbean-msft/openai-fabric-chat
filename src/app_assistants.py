@@ -152,7 +152,8 @@ def start_conversation_turn(run, thread):
   
                 try:  
                     # Call the function to get the SQL database schema with the provided arguments  
-                    response = (functions.get_adx_db_schema(args['database']))  
+                    #response = (functions.get_adx_db_schema(args['database']))  
+                    response = (functions.get_adx_db_schema(os.getenv('KUSTO_DATABASE')))
                     # Normalize the JSON response to create a dataframe  
                     expanded_df = json_normalize((response), record_path='columns', meta='table')  
                     # Display the dataframe in an expandable section  
@@ -181,7 +182,7 @@ def start_conversation_turn(run, thread):
                     st.session_state.messages.append({'role': 'adxquery', 'content': args['query']})  
                 try:  
                     # Call the function to execute the SQL query with the provided arguments  
-                    response = (functions.query_adx_db(args['query']))  
+                    response = (functions.query_adx_db(os.getenv('KUSTO_DATABASE'), args['query']))  
                     # Display the query results in an expandable section  
                     with st.expander("ADX Data"):  
                         st.dataframe(response)  

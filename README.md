@@ -1,16 +1,14 @@
-# Azure OpenAI Assistants Demo - SQL Chat
+# Azure OpenAI Assistants Demo - ADX Chat
 
-Attached here is code for a sample Streamlit application which can be used to demonstrate a pattern for conversational interaction with a SQL Database.
+Attached here is code for a sample Streamlit application which can be used to demonstrate a pattern for conversational interaction with a ADX Database.
 
-Briefly, we showcase how to utilize the Azure OpenAI Assistants API (specifically, the Function Calling & Code Interpreter capabilities) to retrieve schema for a target SQL database - in our testing we utilized the AdventureWorks Database deployed into a lightweight Azure SQL Database - then to assemble and execute SQL queries and provide text-based and graphical responses.
+Briefly, we showcase how to utilize the Azure OpenAI Assistants API (specifically, the Function Calling & Code Interpreter capabilities) to retrieve schema for a target ADX database - in our testing we utilized the AdventureWorks Database deployed into a lightweight Azure ADX Database - then to assemble and execute ADX queries and provide text-based and graphical responses.
 
 Here is a high-level description of what the flow of calls looks like.
 
 ![architecture](.img/architecture.drawio.png)
 
 Here is a more detailed sequence diagram.
-
-
 
 ## Disclaimer
 
@@ -25,15 +23,15 @@ Here is a more detailed sequence diagram.
 
 ### Setup
 
-Running this demo successfully requires having access to a SQL database which can be reached from a client machine using traditional SQL Authentication via the `pyodbc` library. For our development purposes, we utilized an Azure SQL Database loaded with the AdventureWorks dataset - this can be deployed directly from the Azure portal, and you can whitelist the IP address of the client machine running the demo.
+Running this demo successfully requires having access to a ADX database which can be reached from a client machine. For our development purposes, we utilized an Azure ADX Database loaded with the AdventureWorks dataset - this can be deployed directly from the Azure portal, and you can whitelist the IP address of the client machine running the demo.
 
 Further, you will need to have an instance of Azure OpenAI deployed in a region which supports the Assistants API. The system message and functions associated with the deployment can be found in `assistants_sys_msg.txt`, `get_sql_db_schema.json`, and `query_sql_db.json`.
 
-Create an updated `.env` with values from your SQL/Azure OpenAI resources using `sample.env` as a template.
+Create an updated `.env` with values from your ADX/Azure OpenAI resources using `sample.env` as a template.
 
 ### Running the Application locally
 
-To start the Streamlit SQL Chat Application run the following command:
+To start the Streamlit ADX Chat Application run the following command:
 
 ```shell
 cd src
@@ -57,19 +55,19 @@ azd up
 
 ### Demo
 
-We can run human language queries against the database and let OpenAI generate the relevant SQL.
+We can run human language queries against the database and let OpenAI generate the relevant ADX.
 
 For instance:
 
 ```
-Give me the total sales by customer and chart with a pie chart with the customer names as labels
+I would like to get the total retail sales for 2020 by months
 ```
 
 After issuing this query, we can see that the web app is querying the data dictionary of the database to get the schema of the data model.
 
 ![gathering-database-schema](./.img/gathering-database-schema.png)
 
-Next, we can see it generate the correct SQL query and retrieve the data.
+Next, we can see it generate the correct ADX query and retrieve the data.
 
 ![sql-query](./.img/sql-query.png)
 

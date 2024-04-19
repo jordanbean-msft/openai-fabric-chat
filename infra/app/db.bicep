@@ -3,31 +3,20 @@ param location string = resourceGroup().location
 param tags object = {}
 
 param databaseName string = ''
-param keyVaultName string
-param connectionStringKey string
-
-@secure()
-param sqlAdminPassword string
-@secure()
-param appUserPassword string
 
 // Because databaseName is optional in main.bicep, we make sure the database name is set here.
-var defaultDatabaseName = 'Todo'
+var defaultDatabaseName = 'retail'
 var actualDatabaseName = !empty(databaseName) ? databaseName : defaultDatabaseName
 
-module sqlServer '../core/database/sqlserver/sqlserver.bicep' = {
-  name: '${name}-deployment'
+module adx '../core/database/adx/adx.bicep' = {
+  name: '${name}-adx'
   params: {
+    databaseName: actualDatabaseName
     name: name
     location: location
     tags: tags
-    databaseName: actualDatabaseName
-    keyVaultName: keyVaultName
-    sqlAdminPassword: sqlAdminPassword
-    appUserPassword: appUserPassword
-    connectionStringKey: connectionStringKey
   }
 }
 
-output connectionStringKey string = sqlServer.outputs.connectionStringKey
-output databaseName string = sqlServer.outputs.databaseName
+output adxClusterName string = adx.outputs.adxClusterName
+output adxDatabaseName string = adx.outputs.adxDatabaseName
